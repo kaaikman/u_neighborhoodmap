@@ -1,0 +1,27 @@
+html, body {
+  height: 99%;
+  overflow-y: hidden;
+}
+
+#map {
+  transition: height .3s ease;
+}
+
+.map-large {
+  height: 96%;
+}
+.map-small {
+  height: 56%;
+}
+
+.l-box-hide {
+  height: 3%;
+  text-align: center;
+}
+.l-box-show {
+  height: 43%;
+}
+
+#toggler {
+  width: 100%;
+}
