@@ -1,4 +1,5 @@
 html, body {
+  /* 100% height adds a small amount of scrolling */
   height: 99%;
   overflow-y: hidden;
 }
