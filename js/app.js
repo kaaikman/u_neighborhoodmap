@@ -51,22 +51,20 @@
      };
   };
 
-// INFO DRAWER
-  var listBoxToggle = document.getElementById('toggler');
-  var mapBox = document.getElementById('map');
-  var listBox = document.getElementById('list-box');
-  if(listBoxToggle) {
-    listBoxToggle.addEventListener('click', function() {
-          mapBox.classList.toggle('map-small');
-          listBox.classList.toggle('l-box-show');
-          if (listBoxToggle.innerHTML == "+") {
-            listBoxToggle.innerHTML = "-";
-          }
-          else {
-            listBoxToggle.innerHTML = "+";
-          };
-        });
+function NMViewModel() {
+  this.idIcon = ko.observable('+');
+  this.idOpen = ko.observable(false);
+  this.openID = function() {
+    this.idOpen(!this.idOpen());
+    if (this.idIcon() == '+') {
+      this.idIcon('-');
+    } else {
+      this.idIcon('+');
     };
+  };
+};
+
+ko.applyBindings(new NMViewModel());
 
 // INFO DRAWER VIEWMODEL
 

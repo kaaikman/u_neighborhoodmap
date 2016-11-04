@@ -5,16 +5,14 @@
     <title>Neighborhood Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- APIS AND EXTERNAL FILES -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js'></script>
-    <script async src="js/app.js"></script>
+
     <link rel="stylesheet" href="css/styles.css" media="screen">
     <link rel="stylesheet" href="css/mapstyles.css" media="screen">
   </head>
   <body>
-    <div id="map" class="map-large"></div>
+    <div id="map" data-bind="css: {'map-large': !idOpen(), 'map-small': idOpen}"></div>
+    <div><button data-bind="click: openID, text: idIcon" id="toggler"></button></div>
     <div id="list-box" class="l-box-hide">
-      <button type="button" name="button" id="toggler">+</button>
       <table>
         <thead>
           <tr>
@@ -32,6 +30,9 @@
         </tbody>
       </table>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js'></script>
+    <script src="js/app.js"></script>
     <!-- LOAD THE GGL MAPS API -->
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDWH4z-3p74wQSDRn5E9PEAAhcL54miv6c&v=3&callback=initMap"
     async defer>

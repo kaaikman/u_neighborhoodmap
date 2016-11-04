@@ -24,5 +24,6 @@ html, body {
 }
 
 #toggler {
+  min-height: 3vh;
   width: 100%;
 }
