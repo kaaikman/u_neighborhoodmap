@@ -49,6 +49,7 @@
               animation: google.maps.Animation.DROP,
               id: i
             });
+            locTypes[aI][i].marker = locMarker;
             switch (aI) {
               case 0:
                 locAllMarkers.push(locMarker);
@@ -64,6 +65,11 @@
             locMarker.addListener('click', function() {
               locInfoWindow.setContent(this.title);
               locInfoWindow.open(map, this);
+              var self = this;
+              self.setAnimation(google.maps.Animation.BOUNCE);
+              setTimeout(function() {
+                  self.setAnimation(null);
+              }, 600);
             });
        };
      };
@@ -92,6 +98,7 @@ function NMViewModel() {
       case 'Lodging': self.locsSelected(locLodging); break;
       default: self.locsSelected(locAll);
     };
+    filterMarkers(self.locTypeSelected());
   };
 };
 
@@ -117,3 +124,11 @@ function filterMarkers(type) {
           locDisplayedMarkers[dM].setMap(map);
         }
 };
+
+highlightMarker = function(object) {
+        var marker = object.marker;
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            marker.setAnimation(null);
+        }, 600);
+    };

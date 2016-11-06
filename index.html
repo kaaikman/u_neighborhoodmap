@@ -23,11 +23,11 @@
         </thead>
         <tbody>
           <tr>
-            <td><select data-bind="options: locTypeSelect, value: locTypeSelected, event: {change: parent.filterMarkers(locTypeSelected())}"></select></td>
+            <td><select data-bind="options: locTypeSelect, value: locTypeSelected, event: {change: locsSelectedSet}"></select></td>
           </tr>
           <tr>
             <td data-bind="foreach: locsSelected">
-              <ul data-bind="text: title">
+              <ul data-bind="text: title, click: parent.highlightMarker">
 
               </ul>
             </td>
