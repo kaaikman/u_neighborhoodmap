@@ -15,11 +15,11 @@ html, body {
   height: 56%;
 }
 
-.l-box-hide {
+.id-box-hide {
   height: 3%;
   text-align: center;
 }
-.l-box-show {
+.id-box-show {
   height: 43%;
 }
 

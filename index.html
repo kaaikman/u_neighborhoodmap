@@ -12,8 +12,9 @@
   <body>
     <div id="map" data-bind="css: {'map-large': !idOpen(), 'map-small': idOpen}"></div>
     <div><button data-bind="click: openID, text: idIcon" id="toggler"></button></div>
-    <div id="list-box" class="l-box-hide">
-      <table>
+    <!-- don't need class? or can add like in map div above -->
+    <div id="info-drawer" class="id-box-hide">
+      <table border="1">
         <thead>
           <tr>
             <th>Type</th>
@@ -22,9 +23,13 @@
         </thead>
         <tbody>
           <tr>
-            <td><select>Pick Type</select></td>
-            <td>
-              <button type="button" id="hide-sights">Hide</button>
+            <td><select data-bind="options: locTypeSelect, value: locTypeSelected, event: {change: parent.filterMarkers(locTypeSelected())}"></select></td>
+          </tr>
+          <tr>
+            <td data-bind="foreach: locsSelected">
+              <ul data-bind="text: title">
+
+              </ul>
             </td>
           </tr>
         </tbody>
