@@ -26,18 +26,13 @@
       center: {lat: 51.375801, lng: -2.3599039},
       zoom: 15
     });
+    ko.applyBindings(new NMViewModel());
+  };
+
+  function NMViewModel() {
+    var self = this;
+
     var locInfoWindow = new google.maps.InfoWindow();
-    // // Array to hold all locations and individual type arrays for categorizing
-    // var locTypes = [];
-    // var locSights = [
-    //   {title: 'Pulteney Bridge', location: {lat: 51.3831297, lng: -2.3576228}},
-    //   {title: 'The Roman Baths', location: {lat: 51.3809407, lng: -2.3593905}}
-    // ];
-    // locTypes.push(locSights);
-    // var locLodging = [
-    //   {title: 'SACO Bath', location: {lat: 51.3793877, lng: -2.3606299}}
-    // ];
-    // locTypes.push(locLodging);
     for (var aI = 0; aI < locTypes.length; aI++) {
       for (var i = 0; i < locTypes[aI].length; i++) {
             var position = locTypes[aI][i].location;
@@ -73,62 +68,49 @@
             });
        };
      };
-    //  console.log(locAllMarkers);
-  };
 
-function NMViewModel() {
-  var self = this;
-  self.locTypeSelect = ko.observableArray(['All', 'Sights', 'Lodging']);
-  self.locTypeSelected = ko.observable('All');
-  self.locsSelected = ko.observableArray(locAll);
-  this.idIcon = ko.observable('+');
-  this.idOpen = ko.observable(false);
-  this.openID = function() {
-    this.idOpen(!this.idOpen());
-    if (this.idIcon() == '+') {
-      this.idIcon('-');
-    } else {
-      this.idIcon('+');
+    self.locTypeSelect = ko.observableArray(['All', 'Sights', 'Lodging']);
+    self.locTypeSelected = ko.observable('All');
+    self.locsSelected = ko.observableArray(locAll);
+    self.idIcon = ko.observable('+');
+    self.idOpen = ko.observable(false);
+    self.openID = function() {
+      self.idOpen(!this.idOpen());
+      if (self.idIcon() == '+') {
+        self.idIcon('-');
+      } else {
+        self.idIcon('+');
+      };
     };
-  };
-  self.locsSelectedSet = function() {
-    switch(self.locTypeSelected()) {
-      case 'All': self.locsSelected(locAll); break;
-      case 'Sights': self.locsSelected(locSights); break;
-      case 'Lodging': self.locsSelected(locLodging); break;
-      default: self.locsSelected(locAll);
+    self.locsSelectedSet = function() {
+      switch(self.locTypeSelected()) {
+        case 'All': self.locsSelected(locAll); break;
+        case 'Sights': self.locsSelected(locSights); break;
+        case 'Lodging': self.locsSelected(locLodging); break;
+        default: self.locsSelected(locAll);
+      };
+      filterMarkers(self.locTypeSelected());
     };
-    filterMarkers(self.locTypeSelected());
-  };
-};
 
-ko.applyBindings(new NMViewModel());
+    function filterMarkers(type) {
+            for (var cM = 0; cM < locDisplayedMarkers.length; cM++) {
+              locDisplayedMarkers[cM].setMap(null);
+            };
+            var buildMarkerArray = window['loc' + type + 'Markers'];
+            locDisplayedMarkers = buildMarkerArray;
+            for (var dM = 0; dM < locDisplayedMarkers.length; dM++) {
+              locDisplayedMarkers[dM].setMap(map);
+            }
+    };
 
-// INFO DRAWER VIEWMODEL
-
-// function filterMarkers(type) {
-//         var buildMarkerArray = window['loc' + type + 'Markers'];
-//         console.log(buildMarkerArray);
-//         for (var i = 0; i < buildMarkerArray.length; i++) {
-//           console.log(buildMarkerArray.length);
-//           buildMarkerArray[i].setMap(null);
-//         }
-// };
-function filterMarkers(type) {
-        for (var cM = 0; cM < locDisplayedMarkers.length; cM++) {
-          locDisplayedMarkers[cM].setMap(null);
+    self.highlightMarker = function(object) {
+            var marker = object.marker;
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function() {
+                marker.setAnimation(null);
+            }, 600);
+            locInfoWindow.setContent(object.title);
+            locInfoWindow.open(map, marker);
         };
-        var buildMarkerArray = window['loc' + type + 'Markers'];
-        locDisplayedMarkers = buildMarkerArray;
-        for (var dM = 0; dM < locDisplayedMarkers.length; dM++) {
-          locDisplayedMarkers[dM].setMap(map);
-        }
-};
 
-highlightMarker = function(object) {
-        var marker = object.marker;
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-        setTimeout(function() {
-            marker.setAnimation(null);
-        }, 600);
-    };
+  };
