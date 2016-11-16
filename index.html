@@ -15,15 +15,18 @@
     <!-- don't need class? or can add like in map div above -->
     <div id="info-drawer" class="id-box-hide">
       <table border="1">
-        <thead>
+        <!-- <thead>
           <tr>
             <th>Type</th>
             <th>List</th>
           </tr>
-        </thead>
+        </thead> -->
         <tbody>
           <tr>
             <td><select data-bind="options: locTypeSelect, value: locTypeSelected, event: {change: locsSelectedSet}"></select></td>
+            <td>
+              <!-- <button data-bind="click: testllama"></button> -->
+            </td>
           </tr>
           <tr>
             <td data-bind="foreach: locsSelected">
@@ -31,6 +34,9 @@
 
               </ul>
             </td>
+            <td><div data-bind="html: placeImg">
+
+            </div></td>
           </tr>
         </tbody>
       </table>
