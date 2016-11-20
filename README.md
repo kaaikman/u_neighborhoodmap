@@ -3,6 +3,7 @@
 ### Map of the city of Bath in England.
 ### Contains:
 * 9 points of interest
+* Drop down filter
 * Location rating via FourSquare
 * Location image via FourSquare
 

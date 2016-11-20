@@ -38,11 +38,11 @@
     });
     mcf = map.getCenter();
     ko.applyBindings(new NMViewModel());
-  };
+  }
   // If map can't be loaded:
   function loadFail() {
     alert("Map could not be loaded");
-  };
+  }
 // VIEW MODEL
   function NMViewModel() {
     var self = this;
@@ -67,17 +67,17 @@
               case 0:
                 locAllMarkers.push(locMarker);
                 locSightsMarkers.push(locMarker);
-                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png')
+                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png');
                 break;
               case 1:
                 locAllMarkers.push(locMarker);
                 locLodgingMarkers.push(locMarker);
-                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
                 break;
               case 2:
                 locAllMarkers.push(locMarker);
                 locFoodMarkers.push(locMarker);
-                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
                 break;
               default:
                 locAllMarkers.push(locMarker);
@@ -135,7 +135,7 @@
               locDisplayedMarkers[dM].setMap(map);
             }
             markerBounds();
-    };
+    }
     // when a marker or list item is clicked this causes the reaction
     self.highlightMarker = function(object) {
             var marker = object.marker;
@@ -171,7 +171,7 @@
       .fail(function() {
         alert("FourSquare data could not be loaded");
       });
-    };
+    }
     self.placeImg = ko.observable('<img class="pImg" src="img/bath.jpg" title="Source: Pixfix"></img>');
     self.placesImg = function(pImg, pSrc) {
       self.placeImg('<img class="pImg" src="' + pImg + '" title="' + pSrc + '"></img>');
@@ -185,5 +185,5 @@
           bounds.extend(locAllMarkers[i].position);
         }
         map.fitBounds(bounds);
-    };
-  };
+    }
+  }
