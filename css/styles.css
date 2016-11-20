@@ -34,7 +34,8 @@ ul {
   overflow-y: hidden;
 }
 .map-small {
-  height: 56%;
+  /* adjust from 56 */
+  height: 52%;
   overflow-y: scroll;
 }
 
@@ -58,4 +59,11 @@ ul {
   width: 100%;
   background-color: #f3f3f3;
   border-color: black;
+}
+
+button:hover {
+  cursor: pointer;
+}
+ul:hover {
+  cursor: pointer;
 }

@@ -134,6 +134,7 @@
             for (var dM = 0; dM < locDisplayedMarkers.length; dM++) {
               locDisplayedMarkers[dM].setMap(map);
             }
+            markerBounds();
     };
     // when a marker or list item is clicked this causes the reaction
     self.highlightMarker = function(object) {
