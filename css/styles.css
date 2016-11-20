@@ -1,7 +1,28 @@
 html, body {
   /* 100% height adds a small amount of scrolling */
   height: 99%;
-  overflow-y: hidden;
+  /*overflow-y: hidden;*/
+}
+
+.pImg {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+table {
+  max-height: 100%;
+  width: 100%;
+  margin: auto;
+  border: 0;
+}
+ul {
+  display: inline-flex;
+  list-style-type: circle;
+  background-color: #f3f3f3;
+  text-align: center;
+  box-shadow: 1px 1px 1px #888888;
+  padding: 6px;
+  margin: 1px;
 }
 
 #map {
@@ -10,9 +31,18 @@ html, body {
 
 .map-large {
   height: 96%;
+  overflow-y: hidden;
 }
 .map-small {
   height: 56%;
+  overflow-y: scroll;
+}
+
+.overflowT {
+  overflow-y: scroll;
+}
+.overflowF {
+  overflow-y: hidden;
 }
 
 .id-box-hide {
@@ -26,4 +56,6 @@ html, body {
 #toggler {
   min-height: 3vh;
   width: 100%;
+  background-color: #f3f3f3;
+  border-color: black;
 }

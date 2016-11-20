@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/styles.css" media="screen">
     <link rel="stylesheet" href="css/mapstyles.css" media="screen">
   </head>
-  <body>
+  <body data-bind="css: {'overflowF': !idOpen(), 'overflowT': idOpen}">
     <div id="map" data-bind="css: {'map-large': !idOpen(), 'map-small': idOpen}"></div>
     <div><button data-bind="click: openID, text: idIcon" id="toggler"></button></div>
     <!-- don't need class? or can add like in map div above -->
@@ -24,19 +24,18 @@
         <tbody>
           <tr>
             <td><select data-bind="options: locTypeSelect, value: locTypeSelected, event: {change: locsSelectedSet}"></select></td>
-            <td>
-              <!-- <button data-bind="click: testllama"></button> -->
-            </td>
           </tr>
           <tr>
             <td data-bind="foreach: locsSelected">
-              <ul data-bind="text: title, click: $parent.highlightMarker">
-
-              </ul>
+              <ul data-bind="text: title, click: $parent.highlightMarker"></ul>
             </td>
-            <td><div data-bind="html: placeImg">
-
-            </div></td>
+            <!-- <td><div data-bind="html: placeImg"></div></td> -->
+          </tr>
+          <tr>
+            <td><div data-bind="html: placeImg"></div></td>
+          </tr>
+          <tr>
+            <td><img src=img/pbFS.png alt="powered by foursquare" max-width: 20%></img></td>
           </tr>
         </tbody>
       </table>
@@ -46,6 +45,7 @@
     <script src="js/app.js"></script>
     <!-- LOAD THE GGL MAPS API -->
     <script src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyDWH4z-3p74wQSDRn5E9PEAAhcL54miv6c&v=3&callback=initMap"
+    onerror="loadFail()"
     async defer>
     </script>
   </body>

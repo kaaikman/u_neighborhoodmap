@@ -40,6 +40,10 @@
     ko.applyBindings(new NMViewModel());
   };
 
+  function loadFail() {
+    alert("Map could not be loaded");
+  }
+
   function NMViewModel() {
     var self = this;
 
@@ -63,14 +67,17 @@
               case 0:
                 locAllMarkers.push(locMarker);
                 locSightsMarkers.push(locMarker);
+                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/yellow-dot.png')
                 break;
               case 1:
                 locAllMarkers.push(locMarker);
                 locLodgingMarkers.push(locMarker);
+                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png')
                 break;
               case 2:
                 locAllMarkers.push(locMarker);
                 locFoodMarkers.push(locMarker);
+                locMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
                 break;
               default:
                 locAllMarkers.push(locMarker);
@@ -148,23 +155,27 @@
                     + loc.fsID
                     + '?client_id=FQCEACSH5BBV2BQRYOW44DA0W02J2B40JLZRRMQ0V3XVMZ3I&client_secret=ZKBND1BGYZTNOI3EJH014BUE5VPQDGKSSE1PI2GRMYJJ5VKD&v=20161111';
       var fsRate;
+      var fsLogo = 'img/fsLogo.png';
       $.getJSON(fSLink)
       .done(function(data, status) {
         fsRate = data.response.venue.rating;
-        locInfoWindow.setContent(loc.title + '<br/>' + fsRate + '/10');
+        locInfoWindow.setContent(loc.title + '<br/>' + '<img width= 15em src="' + fsLogo + '"></img> ' + fsRate + '/10');
         locInfoWindow.open(map, loc.marker);
         var fSImgTag = data.response.venue.photos.groups[0].items[0];
         var pietest = data.response.venue.photos.groups[0].items[0].prefix;
         var pietest2 = data.response.venue.photos.groups[0].items[0].suffix;
-        var pietest3 = fSImgTag.prefix + '500x300' + fSImgTag.suffix;
+        var pietest3 = fSImgTag.prefix + '900x300' + fSImgTag.suffix;
         var pietest4 = 'Source: ' + fSImgTag.user.firstName + ' ' + fSImgTag.user.lastName;
         self.placesImg(pietest3, pietest4);
+      })
+      .fail(function() {
+        alert("FourSquare data could not be loaded");
       });
     };
 
-    self.placeImg = ko.observable('<img src="https://lh5.googleusercontent.com/proxy/6F-Y7c0MfrXopNCV4P23h3ZKuNiGLdFN7NHe2Cg0VUEZAz5nRrIIrBWFKxH3-zGmkevZDukEakeWaPaXXE_Hb2_KyKbkoYg=w408-h275"></img>');
+    self.placeImg = ko.observable('<img class="pImg" src="img/bath.jpg" title="Source: Pixfix"></img>');
     self.placesImg = function(pImg, pSrc) {
-      self.placeImg('<img src="' + pImg + '" title="' + pSrc + '"></img>');
+      self.placeImg('<img class="pImg" src="' + pImg + '" title="' + pSrc + '"></img>');
     };
 
     function markerBounds() {
