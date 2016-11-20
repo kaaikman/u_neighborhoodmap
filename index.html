@@ -5,13 +5,12 @@
     <title>Neighborhood Map</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="css/styles.css" media="screen">
-    <link rel="stylesheet" href="css/mapstyles.css" media="screen">
   </head>
   <body data-bind="css: {'overflowF': !idOpen(), 'overflowT': idOpen}">
-    <div id="map" data-bind="css: {'map-large': !idOpen(), 'map-small': idOpen}"></div>
-    <div><button data-bind="click: openID, text: idIcon" id="toggler"></button></div>
+    <main id="map" data-bind="css: {'map-large': !idOpen(), 'map-small': idOpen}"></main>
+    <nav><button data-bind="click: openID, text: idIcon" id="toggler"></button></nav>
     <!-- don't need class? or can add like in map div above -->
-    <div id="info-drawer" class="id-box-hide">
+    <aside id="info-drawer" class="id-box-hide">
       <table border="1">
         <!-- <thead>
           <tr>
@@ -36,7 +35,7 @@
           </tr>
         </tbody>
       </table>
-    </div>
+    </aside>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js'></script>
     <script src="js/app.js"></script>

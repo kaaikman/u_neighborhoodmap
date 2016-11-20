@@ -1,10 +1,11 @@
-html, body {
+html,
+body {
   /* 100% height adds a small amount of scrolling */
   height: 99%;
   /*overflow-y: hidden;*/
 }
 
-.pImg {
+.p-img {
   max-height: 100%;
   max-width: 100%;
 }
@@ -15,6 +16,7 @@ table {
   margin: auto;
   border: 0;
 }
+
 ul {
   display: inline-flex;
   list-style-type: circle;
@@ -33,6 +35,7 @@ ul {
   height: 96%;
   overflow-y: hidden;
 }
+
 .map-small {
   /* adjust from 56 */
   height: 52%;
@@ -42,6 +45,7 @@ ul {
 .overflowT {
   overflow-y: scroll;
 }
+
 .overflowF {
   overflow-y: hidden;
 }
@@ -50,6 +54,7 @@ ul {
   height: 3%;
   text-align: center;
 }
+
 .id-box-show {
   height: 43%;
 }
@@ -64,6 +69,7 @@ ul {
 button:hover {
   cursor: pointer;
 }
+
 ul:hover {
   cursor: pointer;
 }

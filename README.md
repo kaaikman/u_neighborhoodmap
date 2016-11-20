@@ -1,4 +1,6 @@
 # [Udacity Neighborhood Map Project](https://kaaikman.github.io/u_neighborhoodmap/)
+#### _**To run open index.html in your browser**_
+#### *(will work best if run through local server, I used [Fenix](http://fenixwebserver.com/))*
 
 ### Map of the city of Bath in England.
 ### Contains:
