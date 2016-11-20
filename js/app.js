@@ -1,4 +1,5 @@
-// INITIALIZE MAP
+// MODEL/many arrays
+  // arrays for holding the markers
   var map;
   var locAllMarkers = [];
   var locSightsMarkers = [];
@@ -6,8 +7,7 @@
   var locFoodMarkers = [];
   var locDisplayedMarkers = locAllMarkers;
 
-
-  // Array to hold all locations and individual type arrays for categorizing
+  // arrays to hold all location data and individual type arrays for categorizing
   var locTypes = [];
   var locAll = [];
   var locSights = [
@@ -30,7 +30,7 @@
   locTypes.push(locFood);
   locAll = locAll.concat(locSights, locLodging, locFood);
 
-
+// INITIALIZE MAP
   function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
       center: {lat: 51.375801, lng: -2.3599039},
@@ -39,14 +39,14 @@
     mcf = map.getCenter();
     ko.applyBindings(new NMViewModel());
   };
-
+  // If map can't be loaded:
   function loadFail() {
     alert("Map could not be loaded");
-  }
-
+  };
+// VIEW MODEL
   function NMViewModel() {
     var self = this;
-
+    // Creates the markers and their info windows
     var locInfoWindow = new google.maps.InfoWindow();
     for (var aI = 0; aI < locTypes.length; aI++) {
       for (var i = 0; i < locTypes[aI].length; i++) {
@@ -57,12 +57,12 @@
               map: map,
               title: title,
               position: position,
-              // pImg: PlacePhoto.getUrl(),
               selfRef: selfRef,
               animation: google.maps.Animation.DROP,
               id: i
             });
             locTypes[aI][i].marker = locMarker;
+            // pushes newly created marker to appropriate array based on loaction type
             switch (aI) {
               case 0:
                 locAllMarkers.push(locMarker);
@@ -93,12 +93,14 @@
               }, 600);
             });
        };
+       // once all markers are created this sets the map to center around and show all of them
        markerBounds();
      };
 
     self.locTypeSelect = ko.observableArray(['All', 'Sights', 'Lodging', 'Food']);
     self.locTypeSelected = ko.observable('All');
     self.locsSelected = ko.observableArray(locAll);
+    // observables and functions for the info drawer
     self.idIcon = ko.observable('+');
     self.idOpen = ko.observable(false);
     self.openID = function() {
@@ -109,8 +111,10 @@
         self.idIcon('+');
       };
       // markerBounds();
+      // delay needed to recenter map at appropriate size
       setTimeout(markerBounds, 303);
     };
+    // sets which markers are shown based on drop down selection
     self.locsSelectedSet = function() {
       switch(self.locTypeSelected()) {
         case 'All': self.locsSelected(locAll); break;
@@ -121,11 +125,17 @@
       };
       filterMarkers(self.locTypeSelected());
     };
-
-    // self.testllama = function() {
-    //   markerBounds();
-    // };
-
+    function filterMarkers(type) {
+            for (var cM = 0; cM < locDisplayedMarkers.length; cM++) {
+              locDisplayedMarkers[cM].setMap(null);
+            };
+            var buildMarkerArray = window['loc' + type + 'Markers'];
+            locDisplayedMarkers = buildMarkerArray;
+            for (var dM = 0; dM < locDisplayedMarkers.length; dM++) {
+              locDisplayedMarkers[dM].setMap(map);
+            }
+    };
+    // when a marker or list item is clicked this causes the reaction
     self.highlightMarker = function(object) {
             var marker = object.marker;
             marker.setAnimation(google.maps.Animation.BOUNCE);
@@ -138,18 +148,7 @@
             // locInfoWindow.setContent(object.title + '<br/>' + content);
             // locInfoWindow.open(map, marker);
         };
-
-    function filterMarkers(type) {
-            for (var cM = 0; cM < locDisplayedMarkers.length; cM++) {
-              locDisplayedMarkers[cM].setMap(null);
-            };
-            var buildMarkerArray = window['loc' + type + 'Markers'];
-            locDisplayedMarkers = buildMarkerArray;
-            for (var dM = 0; dM < locDisplayedMarkers.length; dM++) {
-              locDisplayedMarkers[dM].setMap(map);
-            }
-    };
-
+    // function responsible for getting and showing all foursquare sourced information
     function fourSquare(loc) {
       var fSLink = 'https://api.foursquare.com/v2/venues/'
                     + loc.fsID
@@ -162,22 +161,21 @@
         locInfoWindow.setContent(loc.title + '<br/>' + '<img width= 15em src="' + fsLogo + '"></img> ' + fsRate + '/10');
         locInfoWindow.open(map, loc.marker);
         var fSImgTag = data.response.venue.photos.groups[0].items[0];
-        var pietest = data.response.venue.photos.groups[0].items[0].prefix;
-        var pietest2 = data.response.venue.photos.groups[0].items[0].suffix;
-        var pietest3 = fSImgTag.prefix + '900x300' + fSImgTag.suffix;
-        var pietest4 = 'Source: ' + fSImgTag.user.firstName + ' ' + fSImgTag.user.lastName;
-        self.placesImg(pietest3, pietest4);
+        var fSImgPre = data.response.venue.photos.groups[0].items[0].prefix;
+        var fSImgSuf = data.response.venue.photos.groups[0].items[0].suffix;
+        var fSImgC = fSImgTag.prefix + '900x300' + fSImgTag.suffix;
+        var fSImgSrc = 'Source: ' + fSImgTag.user.firstName + ' ' + fSImgTag.user.lastName;
+        self.placesImg(fSImgC, fSImgSrc);
       })
       .fail(function() {
         alert("FourSquare data could not be loaded");
       });
     };
-
     self.placeImg = ko.observable('<img class="pImg" src="img/bath.jpg" title="Source: Pixfix"></img>');
     self.placesImg = function(pImg, pSrc) {
       self.placeImg('<img class="pImg" src="' + pImg + '" title="' + pSrc + '"></img>');
     };
-
+    // this recenters the map on certain events so everything is shown at appropritate zoom level
     function markerBounds() {
         google.maps.event.trigger(map, 'resize');
 
